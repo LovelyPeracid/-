@@ -1,0 +1,88 @@
+redis 操作的都是string 类型 写lua脚本的时候用tonumber
+
+
+c语言没有字符串 获取字符串长度需要运算
+什么是二进制安全  不能包含 "\0"会被认为是终止
+不能修改
+
+Redis 的字符串SDS
+uint8_t
+
+
+SDS
+	len 字符串大小 不包含结尾符号
+	alloc 申请的大小 不包含结尾符号
+	flags
+	buf[]   
+	
+	如果新字符串小于1M 就是 字符串*2 +1
+		不然就是+1M+1 内存预分配
+		
+		
+SUBSCRIBE
+
+PSUBSCRIBE   ? 1个 * 0或任意个 [ ] 就是括号里面的一个
+
+
+PUBSUB 支持订阅模型 支持多生产 多消费
+
+阻塞 不支持持久化 无法避免消息丢失 有上限  超出时数据丢失
+
+
+List 支持数据持久化
+保证有序
+不受JVM上限
+
+丢失   
+单消费者
+
+Stream   数据类型
+
+xadd key [no make stream]
+
+xlen s1  查看长度
+
+xread [count ] [block milseconds] key  0|$  0是读最旧的 
+0milseconds 就是永久阻塞
+ key就是队列名
+ 
+Stream
+
+消息可回溯
+一个消息可以被多个消费者读取
+可以阻塞读取
+有漏读风险
+
+
+
+
+消费者组
+	多个消费者监听一个队列 
+	
+XGROUP create key groupName ID 
+
+XREADGROUP group groupName consumerName [cnt ] [Block ms] [NOACK] streams Key  >(下一个未消费开始) pending list 维护的上一次消费的是那个消息
+0是从pendinglist 开始读
+ACK代表 是否需要删除
+
+XACK streamKey groupName id1 id2
+
+xpending s1 g1 - + 10
+
+IntSet
+	uint32_encoding 
+	uint32_t length 
+	int8_t contents[]
+ 整数 长度可变 有序 
+
+
+
+
+
+
+
+
+
+
+
+ 

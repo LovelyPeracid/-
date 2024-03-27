@@ -1,0 +1,208 @@
+HashMap是不安全的
+int 常量池-128-127
+distinct
+
+不要写select *
+
+sql is null
+like _一个字符 %任意个字符
+null 聚合函数 不计算null 值
+avg
+count 
+min
+max
+sum
+having 是分组后的过滤条件
+
+select work  where age<45 group by workaddress 
+
+from 
+
+where 
+
+select 
+
+group by
+
+having 
+select 
+order by
+limit 
+
+list 每次扩容1.5倍
+数组是懒加载 第一个是空的
+
+客户端通过http协议访问服务器时,服务器当前不能处理客户端的请求,给出的状态码是 503 每次都需要拷贝数组
+
+arraylist new出来的 扩容次数是0
+hashmap也是懒加载 put的时候正式加载
+数组转成list  修改数组会影响list 因为只能改了个引用
+
+SELECT * FROM `user`;
+CREATE USER 'hzXx'@'localhost' IDENTIFIED BY '123456';
+SELECT * FROM `user`;
+CREATE USER 'HEIMA'@'%' IDENTIFIED BY '123456'
+ALTER USER  'HEIMA'@'%' IDENTIFIED WITH  mysql_native_password by '123'
+DROP USER 'hzXx'@'localhost';
+.
+arraylist 和linkedlist 都是线程不安全的
+ 
+Collections.synchronizedList(new ArrayList<>()) 
+hashmap底层红黑树
+
+
+Hashmap 散列表
+如果key 相同 覆盖原来的值
+不同 冲突就把链表换成红黑树（链表的长度大于8 并且数组长度大于64） 如果红黑树拆分成的树的结点小于等于6个退化成链表 一次大小是16 扩容是2倍 
+Hashmap是懒惰加载 创建对象的时候没有初始化数组 扩容因子 0.75
+ 
+aop做日志 改进一下 
+出题平台把AOP亮点写清楚 AOP写日志 AOP鉴权 
+ 
+ spring 事务是@Trans 用的AOP 来完成的
+ 
+
+ 事务失效  
+ 异常捕获 再抛一遍
+ spring 只会默认回滚非检查异常 @Transactional(rollbackFor=Exception.class)
+ 抛出检查异常
+ 用this来调用的是非代理对象 不能触发事务
+ 用AopContext.currentProxy 来获取代理的对象  同时要引入aspectj 的依赖 并且在启动类里面暴露出
+ 
+ ctrl shift +u 切换大小写
+
+非public 方法导致事务失效
+外部没有权限aop 
+
+UPPER
+LOWER  
+
+LPAD
+RPAD
+AOP 底层是动态代理
+
+循环依赖是 三级缓存来解决
+
+
+什么是插入排序
+
+
+面向对象 继承封装和多态
+ 
+
+多态 编译看左边 运行看右边
+多态情况下，子父类存在同名的静态成员变量成员方法时，访问的是父类的成员函数
+
+
+
+
+
+ceil
+floor
+mod 
+rand 
+round
+
+ 
+netty
+JDK 8新特性
+lambda 表达式
+stream
+LocalDateTime
+多重注解
+方法引用
+
+Map的不可变集合 是最最多20个
+
+而且key不能重复
+
+形参里面的可变参数
+
+alt+回车 就能简写lambda
+Collections.addAll
+一个参数小括号也能简写
+匿名内部类是是一个接口的 并且只有一个抽象方法需要重写
+
+distinct去重是依赖hascode和equals
+concat是合并流
+ 
+stream 流sorted 要求不能重复
+skip  limit
+filter
+
+可重入锁就是哈希结构
+
+
+双写一致性 
+	双删再延迟删除
+
+
+
+1400+2300  3700+2000 5700 6000拿下
+
+
+
+
+
+非引用数据类型 不能直接用stream.of 来转化 不然是地址
+
+
+
+hashmap hash相同看key key一样就覆盖 
+
+
+ifnull（A,B） 如果A不为null返回A
+if（bool,A,B） 如果true 是返回A
+
+
+
+case when then  else and
+
+substring 
+
+
+阻塞队列 就是可以来完成异步
+
+保护性暂停
+
+
+
+
+
+ioc控制反转
+	之前由程序来创建现在是 框架来注入
+DI 依赖注入   
+
+
+java 注解是接口实现的 都是抽象类
+
+元注解 修饰注解的注解
+@Target 
+
+@Retention 保留周期 source 只做用源码阶段 class 字节码阶段 runtime 开发
+
+
+
+代理
+统一异常处理
+
+mybatis
+
+aop 
+
+
+可为NULL的索引 需要加额外字节 
+
+
+
+方法区/永久代 放进了内存变成了元空间
+
+  孤儿进程是 父进程死掉 还在进行的进程
+  会被init 进程号1 收养
+  
+  僵尸进程 如果子进程退出 父进程没有调用wait  获取子进程的状态信息  进程已经消失 但是仍然还占用进程表一条记录 强制杀死父进程
+  子进程的描述符仍然保存在系统中
+  
+
+
+arraylist扩容每次1.5 每次扩容都需要拷贝数组

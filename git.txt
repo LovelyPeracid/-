@@ -1,0 +1,19 @@
+
+Git是分布式版本控制系统
+commitId 第一无二  hash算法来实现
+
+增量式 每次回滚需要回滚所有内容
+
+git 快照流
+git 存储文件也根据hash值来索引的
+SHA1 40字字符
+git cat-file f7c6
+
+
+git 对象模型 bolb tree commit  tag
+
+git rebase   线性提交
+
+git merge  是把 两个分支合并是向前推进的
+
+ 先把 主干分支merge到分支 在merge回去 把特性分支rebase到 主分支

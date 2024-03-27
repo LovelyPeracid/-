@@ -1,0 +1,10 @@
+spring security 是过滤器链  洋葱模型
+
+ UsernamePassword authenticationFilter   
+ Exception
+ FilterSecurity 鉴权
+ 
+   自定义登陆接口 自定义UserDetailsService 
+   
+   基于资源的控制访问
+   RBAC   

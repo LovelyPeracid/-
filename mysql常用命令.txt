@@ -1,0 +1,22 @@
+show index from 表名
+
+create index idx_表名_字段 on tb_表名(字段
+
+drop index 索引名
+
+select count (distinct substring(字段,1,len)) /count(*) from 表名
+
+create index idx_表名_字段_后缀 on tb(表名 asc)
+索引可以指定升序还是降序
+create or replace  view as select SQL 
+drop view if exist  视图名称
+show create view 视图名称 查看创建视图语句
+
+drop procedure p1
+
+select count(*) into stu_conut from a;
+
+
+if  srcore>=85 then
+
+end if

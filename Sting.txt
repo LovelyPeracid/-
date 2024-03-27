@@ -1,0 +1,11 @@
+Stirng是不可变的每次修改都要创建新的 
+
+String 字符串常量
+StringBuffer 字符串变量（线程安全） syn
+StringBuilder 字符串变量（非线程安全）  可变
+
+
+被final修饰不可改变指向对象
+被private修饰 没有暴露出修改的操作
+502 gatway 网关无响应
+504 网关超时

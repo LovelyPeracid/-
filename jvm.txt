@@ -1,0 +1,216 @@
+jvm 大版本就是 版本号-44 
+常量池避免重复定义 节省空间
+i++ 是把 i先读入操作数栈 然后在加1  
+int i=0;
+i=i++;
+i 的答案是0
+javap -v 字节码文件名  是查看字节码信息
+jar -xvf path 是解压jar 包
+
+dashboard -i a毫秒 -n 次数
+
+dump -d path  全限定类名
+
+jad  类名  查看反编译的字节码
+
+
+静态方法不能直接引用非static 对象
+
+比如package JAVA4;
+ 
+import java.util.Random;
+ 
+public class E02 {
+    static Random r = new Random(47);
+    void compareRand(){
+        int a = r.nextInt();
+        int b = r.nextInt();
+        System.out.println("a = " + a + " b = " + b);
+        if(a<b)
+            System.out.println("a < b");
+        else if(a>b)
+            System.out.println("a > b");
+        else System.out.println("a = b");
+    }
+ 
+    public static void main(String[] args) {
+        E02 test = new E02();//声明对象
+        for(int i =0;i<=25;i++)
+            test.compareRand();//通过test.来调用
+    }
+}
+
+需要先声明一个E02 才能继续调用
+在连接阶段 非final 修饰的对象 会先在堆中赋值默认值 然后在重新赋值
+因为final 是没法更改的 所以编译器会直接给赋上初始值 不然的话会产生冲突
+
+静态代码段是初始化 执行的
+是线连接
+
+
+2、非静态代码块的执行特点
+所有非静态代码块中代码都是在new对象时自动执行，并且一定是先于构造器的代码执行。
+
+一个类只会初始化一次
+访问父类静态变量只 初始化父类
+双亲委派机制决定一个类到底谁来加载
+
+
+局部变量表的 槽可以复用 一个变量不再生效后就可以复用
+
+java frame 的大小 -Xss1024k 可以更改
+frame 的 最大值和最小值有要求 不符合 jvm会自动给你更改
+
+
+本地方法栈存储的是native本地方法的帧栈
+java虚拟机存储了java 方法调用的
+
+疑问 为什么能直接引用静态方法
+
+new 的放在堆里
+字符串常量池还在堆
+
+jdk7以后字符串常量池在堆上  字符串常量池存的是堆的地址
+jdk7以前是 在永久代 是把本地存到字符串常量池
+
+jdk7以前 静态变量在方法区 也就是永久代
+jdk7以后 是在堆里 class对象中
+
+用到nio的时候 就要-XX：MaxDirectMemorySize=1m  (数字根据实际来) 
+
+不同的类加载器 加载相同限定名的是 不相同的
+
+打破双亲委派机制是 自定义类加载器并且重写；loadclass方法 tomcat也是这种方法实现了 类的隔离
+
+loadclass 类加载的入口 提供双亲委派机制
+findclass 由类加载器子类实现 获取二进制数据调用defineclass
+define 做类名的检验 吧字节码信息加载到虚拟机内存中
+resolveClass执行连接阶段
+
+2 线程上下文类加载器
+	DriverManager 
+ 方法区的回收
+类加载器被回收 此类的所有实例对象都被回收 Class对象没有在任何地方被引用
+
+ 
+堆上面 引用计数法和可达性分析
+
+引用计数法 
+	维护引用计数器对系统有一定开销
+	无法解决循环引用
+
+ 软引用（缓存）
+ 
+
+软引用被回收 hashmap中的key也要同步回收
+
+ioc 
+
+
+垃圾回收的时候 所有用户线程都要停掉
+STW
+
+
+标记算法 比较简单  碎片化 内存利用不连续 查找合适空间时间长
+复制算法  吞吐量高 不会碎片化 内存使用效率低  慢
+
+标记整理算法就是把还活动的移动到同一边
+
+年轻代
+	伊甸园区和幸存区
+	 
+	如果伊甸园满了就触发 年轻代的GC 没有回收的对象放入To区 TO和from 
+	每次Minor GC 会记录年龄 初始值为0 每次++
+
+
+
+老年代 
+	年轻代存活一定时间就会晋升
+	年轻代空间不足就会占用老年代
+	
+	老年代不足先触发Minor GC
+	然后FULL GC
+
+
+
+
+
+Serial  单CPU 回收年轻代 复制算法
+SerialOid 
+
+
+ParNew 多核较好 不如G1
+
+
+CMS Conncurrent Mark Sweep 适合数据量大频率高的接口 JDK 14 飞起的CMS
+ STW短
+ 退化Serial Old 内存碎片 浮动垃圾（垃圾清理不掉）
+   初始标记 -》 并发标记 重新标记 并发清理
+一开始标记GC ROOT能关联到的
+标记清除 
+FULL GC的时候碎片整理
+然后并发标记用户线程 然后规避 错标漏标 需要重新标记
+
+
+PS
+ 自动调整堆内存大小 关注吞吐量  缺点不能保证单次停顿时间  场景后台任务 
+PO
+ 并发收集 多核效率高
+
+
+G1 garbage first
+  
+G1 之前内存结构是连续的
+现在划分成大小相等的region
+部分对象超过region 的一半就会直接放入老年代 被称为Humongous区 对象过大横跨多个region
+
+45% 触发混合gc 全部年轻代合部分老年代及大对象区
+g1的最终标记只标记漏标的
+
+如果没有足够的region 存放转移的对象 就会full Gc
+
+延迟可控 因为可以控制回收多少个region 
+缺点是JDK8之前不太成熟
+
+
+parnew +CMS 关注暂停时间
+Ps+po关注吞吐量
+G1
+
+
+RES 常驻内存
+SHR 共享内存 
+
+
+
+tunnel   
+
+
+
+hashmap 尽量使用id当key  重写一定确定唯一标识区分不同对象
+
+
+
+
+   
+静态内部类不能引用外部类对象
+
+静态方法可以避免匿名内部类持有调用者对象
+
+静态内部类不会引用外部类
+
+线程池 每次线程用完之后记得remove
+
+单例模式尽量懒加载
+
+
+caffeine
+
+trt  -with -resources
+ 
+支配树
+
+
+heapdump --live path
+
+227/226 下arthas

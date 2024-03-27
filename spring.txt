@@ -1,0 +1,42 @@
+@PostConstruct 这个是初始化后就执行
+
+
+
+parent 是减少依赖冲突
+ 帮我们找到需要的版本
+ 
+starter是简化开发导入的依赖 自动导入所需的依赖
+embed 内嵌的
+
+Jetty 更轻量级
+
+内嵌Tomcat是将服务器作为对象运行并将对象交给spring管理
+
+pom.xml 中的artifactId 修改
+banner  修改
+
+proorities 主导
+
+
+@Value("${}")
+
+Enviroment 
+env.getPropety
+@ConfigraP(prefix="名字")
+不能大写特殊字符 不能下划线
+ 
+ 
+ @Component 吧 pojo 实例化到 spring中
+ 
+ @repository dao层访问 现在数据层都是mapper
+ 
+ 异或相同为0 不同为1 不进位加法    
+ 
+ IOC 控制反转  把bean交给 框架来实现
+ 
+ DI依赖注入
+ 
+ 单例模式 也是有懒加载的 在调用方法的时候才去初始化对象 最好是无状态的 作为工具类使用
+ 
+ 简单工厂模式 又称静态工厂方法
+	可以根据参数的不同返回不同的类实例 被创建的实例都具有相同的父类

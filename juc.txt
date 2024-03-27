@@ -1,0 +1,17 @@
+new 一个thread .start启动
+
+runnable 
+FutureTask   .get（） 可以等线程运行完再返回
+
+tasklist
+taskkill
+
+
+ps -fe
+ps -fT -p
+kill 
+top -H -p PID
+
+
+jps
+jstack 快照
